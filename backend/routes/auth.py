@@ -29,3 +29,7 @@ def register():
     db.session.add(new_user)
     db.session.commit()
     return jsonify({'message': 'Registered successfully'}), 201
+  
+@auth_bp.route('/login', methods=['POST'])
+def login():
+  pass
