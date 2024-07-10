@@ -19,13 +19,35 @@ class User(db.Model):
     username = db.Column(db.String(150), unique=True, nullable=False)
     password = db.Column(db.String(150), nullable=False)
     profile = db.relationship('Profile', backref='user', uselist=False)
-    
+
+
 class Profile(db.Model):
+    '''
+    Profile model class
+
+    Attributes:
+      id (int): Profile ID
+      user_id (int): User ID
+      bio (str): User bio
+    '''
     id = db.Column(db.Integer, primary_key=True)
-    user_id = db.Column(db.Integer, db.ForeignKey('user.id'), nullable=False)
+    user_id = db.Column(db.Integer, db.ForeignKey(
+        'user.id'), nullable=False)
     bio = db.Column(db.Text, nullable=True)
-    
+
+
 class JournalEntry(db.Model):
+    '''
+    Journal Entry model class
+
+    Attributes:
+      id (int): Entry ID
+      user_id (int): User ID
+      title (str): Entry title
+      content (str): Entry content
+      category (str): Entry category
+      created_at (datetime): Entry created date
+    '''
     id = db.Column(db.Integer, primary_key=True)
     user_id = db.Column(db.Integer, db.ForeignKey('user.id'), nullable=False)
     title = db.Column(db.String(150), nullable=False)
