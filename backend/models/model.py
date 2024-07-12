@@ -16,8 +16,8 @@ class User(db.Model):
     '''
 
     id = db.Column(db.Integer, primary_key=True)
-    username = db.Column(db.String(150), unique=True, nullable=False)
-    password = db.Column(db.String(150), nullable=False)
+    username = db.Column(db.String(255), unique=True, nullable=False)
+    password = db.Column(db.String(255), nullable=False)
     profile = db.relationship('Profile', backref='user', uselist=False)
 
 
@@ -28,11 +28,21 @@ class Profile(db.Model):
     Attributes:
       id (int): Profile ID
       user_id (int): User ID
+      email (str): User email
+      gender (str): User gender
+      phone_number (str): User phone_number
+      city (str): User city
+      country (str): User country
       bio (str): User bio
     '''
     id = db.Column(db.Integer, primary_key=True)
     user_id = db.Column(db.Integer, db.ForeignKey(
         'user.id'), nullable=False)
+    email = db.Column(db.Text, nullable=True)
+    gender = db.Column(db.Text, nullable=True)
+    phone_number = db.Column(db.Text, nullable=True)
+    city = db.Column(db.Text, nullable=True)
+    country = db.Column(db.Text, nullable=True)
     bio = db.Column(db.Text, nullable=True)
 
 
@@ -50,9 +60,9 @@ class JournalEntry(db.Model):
     '''
     id = db.Column(db.Integer, primary_key=True)
     user_id = db.Column(db.Integer, db.ForeignKey('user.id'), nullable=False)
-    title = db.Column(db.String(150), nullable=False)
+    title = db.Column(db.String(255), unique=True, nullable=False)
     content = db.Column(db.Text, nullable=False)
-    category = db.Column(db.String(100), nullable=False)
+    category = db.Column(db.String(255), nullable=False)
     created_at = db.Column(db.DateTime, default=datetime.today)
 
     user = db.relationship('User', backref='entries')
