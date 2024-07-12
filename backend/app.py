@@ -12,8 +12,8 @@ def create_app():
     app.config.from_object(Config)
 
     db.init_app(app)
-    migrate = Migrate(app, db)
-    jwt = JWTManager(app)
+    Migrate(app, db)
+    JWTManager(app)
 
     app.register_blueprint(auth_bp)
     app.register_blueprint(entries_bp, url_prefix='/entries')
